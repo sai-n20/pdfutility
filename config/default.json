@@ -1,0 +1,7 @@
+{
+    "server": {
+        "connection": {
+            "port": 8000
+        }
+    }
+}

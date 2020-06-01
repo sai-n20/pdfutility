@@ -19,7 +19,7 @@ module.exports = {
                         const scale = page.getHeight() / jpgImage.width;
                         const newDims = jpgImage.scale(scale);
                         page.drawImage(jpgImage, {
-                            x: page.getWidth(),
+                            x: page.getWidth() - (page.getWidth() - newDims.height) / 2,
                             y: 0,
                             width: newDims.width,
                             height: newDims.height, rotate: degrees(90)
@@ -28,7 +28,7 @@ module.exports = {
                     }
                     else {
                         page.drawImage(jpgImage, {
-                            x: page.getWidth(),
+                            x: page.getWidth() - (page.getWidth() - jpgDims.height) / 2,
                             y: 0,
                             width: jpgDims.width,
                             height: jpgDims.height, rotate: degrees(90)

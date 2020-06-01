@@ -9,15 +9,18 @@ module.exports = {
         try {
             const pdfDoc = await pdflib.create();
             for (var i = 0; i < request.payload["image"].length; i++) {
-                const jpgImageBytes = request.payload["image"][i]._data;
-                const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+                const imageBytes = request.payload["image"][i]._data;
+                let image;
+                if(request.payload["image"][i].hapi.headers["content-type"] === "image/jpeg") { image = await pdfDoc.embedJpg(imageBytes); }
+                else if(request.payload["image"][i].hapi.headers["content-type"] === "image/png") { image = await pdfDoc.embedPng(imageBytes); }
+                else { return Boom.badRequest("Only JPG and PNG supported!"); }
                 const page = pdfDoc.addPage();
-                const jpgDims = jpgImage.scale(0.5);
-                if (jpgImage.width > jpgImage.height) {
+                const jpgDims = image.scale(0.5);
+                if (image.width > image.height) {
                     if (page.getHeight() < jpgDims.width) {
-                        const scale = page.getHeight() / jpgImage.width;
-                        const newDims = jpgImage.scale(scale);
-                        page.drawImage(jpgImage, {
+                        const scale = page.getHeight() / image.width;
+                        const newDims = image.scale(scale);
+                        page.drawImage(image, {
                             x: page.getWidth() - (page.getWidth() - newDims.height) / 2,
                             y: 0,
                             width: newDims.width,
@@ -26,7 +29,7 @@ module.exports = {
                         page.setRotation(degrees(90));
                     }
                     else {
-                        page.drawImage(jpgImage, {
+                        page.drawImage(image, {
                             x: page.getWidth() - (page.getWidth() - jpgDims.height) / 2,
                             y: 0,
                             width: jpgDims.width,
@@ -37,9 +40,9 @@ module.exports = {
                 }
                 else {
                     if (page.getHeight() < jpgDims.height) {
-                        const scale = page.getHeight() / jpgImage.height;
-                        const newDims = jpgImage.scale(scale);
-                        page.drawImage(jpgImage, {
+                        const scale = page.getHeight() / image.height;
+                        const newDims = image.scale(scale);
+                        page.drawImage(image, {
                             x: page.getWidth() / 2 - newDims.width / 2,
                             y: page.getHeight() / 2 - newDims.height / 2,
                             width: newDims.width,
@@ -47,7 +50,7 @@ module.exports = {
                         });
                     }
                     else {
-                        page.drawImage(jpgImage, {
+                        page.drawImage(image, {
                             x: page.getWidth() / 2 - jpgDims.width / 2,
                             y: page.getHeight() / 2 - jpgDims.height / 2,
                             width: jpgDims.width,

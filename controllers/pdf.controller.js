@@ -6,7 +6,6 @@ const stream = require('stream');
 
 module.exports = {
     stitchImage: async (request, h) => {
-        if (request.headers.keystring !== "chaplooboys42069") { return Boom.forbidden("ur mome ez"); }
         try {
             const pdfDoc = await pdflib.create();
             for (var i = 0; i < request.payload["image"].length; i++) {

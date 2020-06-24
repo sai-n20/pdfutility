@@ -1,6 +1,7 @@
 'use strict';
 
 const PdfController = require('../controllers/pdf.controller');
+const DocController = require('../controllers/doc.controller');
 
 module.exports = [
     {
@@ -16,6 +17,20 @@ module.exports = [
             }
         },
         handler: PdfController.stitchImage
+    },
+    {
+        method: 'POST',
+        path: '/docToPDF',
+        config: {
+            payload: {
+                output: "stream",
+                parse: true,
+                allow: "multipart/form-data",
+                maxBytes: 10 * 1000 * 1000,
+                multipart: true
+            }
+        },
+        handler: DocController.convertToPDF
     },
     // {
     //     method: 'PUT',

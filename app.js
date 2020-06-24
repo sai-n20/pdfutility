@@ -5,13 +5,15 @@ const Hapi = require('@hapi/hapi');
 const colors = require('colors/safe');
 const Config = require('config');
 const utils = require('./services/utils/utils.js');
+const swaggerPaths = require('./routes/swagger.route').map((e) => {
+    return e.path;
+});
 
 
 async function start() {
 
     try {
         // utils.addModels();
-
         const server = new Hapi.Server(Config.util.toObject(Config.get('server.connection')))
 
         // await utils.addPolicies(server)
@@ -19,7 +21,10 @@ async function start() {
 
         utils.addRoute(server);
         server.ext('onRequest', (request, h) => {
-            if (request.headers.keystring !== "chaplooboys42069") { return Boom.forbidden("ur mome ez"); }
+            if (swaggerPaths.indexOf(request.path) < 0) {
+                if (request.headers.authorization !== "Bearer chaplooboys42069") { return Boom.forbidden("ur mome ez"); }
+                else { return h.continue; }
+            }
             else { return h.continue; }
         });
 

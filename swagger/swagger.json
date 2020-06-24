@@ -1,10 +1,10 @@
 {
   "info": {
-    "description": "API documentation for Arc Store",
+    "description": "API documentation for PDF Utility",
     "title": "Swagger",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:8000",
   "basePath": "/",
   "produces": [
     "application/json"

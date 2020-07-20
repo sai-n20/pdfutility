@@ -35,7 +35,7 @@
     "imagemin": "^7.0.1",
     "joi": "^13.0.2",
     "jsonwebtoken": "^8.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongoose": "4.13.4",
     "pdf-lib": "^1.7.0",
     "stream": "0.0.2",

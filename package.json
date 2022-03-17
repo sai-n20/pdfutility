@@ -39,6 +39,6 @@
     "mongoose": "4.13.4",
     "pdf-lib": "^1.7.0",
     "stream": "0.0.2",
-    "swagger-ui-dist": "^3.25.5"
+    "swagger-ui-dist": "^4.1.3"
   }
 }

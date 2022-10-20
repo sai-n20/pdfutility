@@ -36,7 +36,7 @@
     "joi": "^13.0.2",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.15",
-    "mongoose": "4.13.4",
+    "mongoose": "4.13.21",
     "pdf-lib": "^1.7.0",
     "stream": "0.0.2",
     "swagger-ui-dist": "^3.25.5"
